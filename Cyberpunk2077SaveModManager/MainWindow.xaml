@@ -7,9 +7,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="Cyberpunk 2077 Save and Mod Manager">
+    Title="Cyberpunk 2077 Save and Mod Manager"
+    >
 
-    <Grid>
-        <Frame x:Name="MainFrame"/>
-    </Grid>
+    <NavigationView
+        x:Name="NavView"
+        PaneDisplayMode="Top"
+        Loaded="NavigationView_Loaded"
+        ItemInvoked="NavigationView_ItemInvoked"
+        BackRequested="NavigationView_BackRequested">
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="GameSave" Tag="Cyberpunk2077SaveModManager.SaveManager"></NavigationViewItem>
+            <NavigationViewItem Content="Mods" Tag="Cyberpunk2077SaveModManager.ModManager"></NavigationViewItem>
+        </NavigationView.MenuItems>
+        <Frame x:Name="ContentFrame"
+               NavigationFailed="ContentFrame_NavigationFailed"/>
+    </NavigationView>
 </Window>
