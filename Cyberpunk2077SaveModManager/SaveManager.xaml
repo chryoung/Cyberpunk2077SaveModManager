@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Cyberpunk2077SaveModManager.SaveManager"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Cyberpunk2077SaveModManager"
+    xmlns:de="using:Cyberpunk2077SaveModManager.DataEntity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="SaveEntryViewTemplate" x:DataType="de:SaveFile">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Rectangle
+                    Grid.RowSpan="2"
+                    RadiusX="3"
+                    RadiusY="3"
+                    Height="32"
+                    Width="32"
+                    Margin="6">
+                    <Rectangle.Fill>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Screenshot, Mode=OneWay}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock
+                    Grid.Column="1"
+                    Text="{x:Bind Metadata.Data.metadata.name}"
+                    x:Phase="1"
+                    Style="{ThemeResource BaseTextBlockStyle}"/>
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{x:Bind Metadata.Data.metadata.timestampIso}"
+                    x:Phase="2"
+                    Style="{ThemeResource BodyTextBlockStyle}"/>
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Text="{x:Bind Metadata.Data.metadata.levelString}"
+                    x:Phase="2"
+                    Style="{ThemeResource BodyTextBlockStyle}"/>
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Text="{x:Bind ReadableSize}"
+                    x:Phase="2"
+                    Style="{ThemeResource BodyTextBlockStyle}"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ListView
+            Grid.Row="0"
+            Grid.Column="0"
+            x:Name="saveDataListView"
+            SelectionMode="Multiple"
+            ItemTemplate="{StaticResource SaveEntryViewTemplate}"
+            ItemsSource="{x:Bind SaveFiles, Mode=OneWay}"/>
+    </Grid>
+</Page>

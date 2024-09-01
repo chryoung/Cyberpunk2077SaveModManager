@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Cyberpunk2077SaveModManager (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Cyberpunk2077SaveModManager (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
