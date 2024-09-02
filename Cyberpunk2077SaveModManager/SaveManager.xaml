@@ -37,19 +37,19 @@
                 </Rectangle>
                 <TextBlock
                     Grid.Column="1"
-                    Text="{x:Bind Metadata.Data.metadata.name}"
+                    Text="{x:Bind Name}"
                     x:Phase="1"
                     Style="{ThemeResource BaseTextBlockStyle}"/>
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="1"
-                    Text="{x:Bind Metadata.Data.metadata.timestampIso}"
+                    Text="{x:Bind Timestamp}"
                     x:Phase="2"
                     Style="{ThemeResource BodyTextBlockStyle}"/>
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="2"
-                    Text="{x:Bind Metadata.Data.metadata.levelString}"
+                    Text="{x:Bind Level}"
                     x:Phase="2"
                     Style="{ThemeResource BodyTextBlockStyle}"/>
                 <TextBlock
@@ -76,6 +76,6 @@
             x:Name="saveDataListView"
             SelectionMode="Multiple"
             ItemTemplate="{StaticResource SaveEntryViewTemplate}"
-            ItemsSource="{x:Bind SaveFiles, Mode=OneWay}"/>
+            ItemsSource="{x:Bind SaveFiles, Mode=TwoWay}"/>
     </Grid>
 </Page>
