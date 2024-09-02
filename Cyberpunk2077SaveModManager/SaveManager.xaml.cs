@@ -23,10 +23,12 @@ namespace Cyberpunk2077SaveModManager
 
         private void RefreshSaveList()
         {
-            var saveFilePaths = Directory.GetDirectories(this.SaveDirectoryPath)
+            var saveFilePaths = Directory
+                .GetDirectories(this.SaveDirectoryPath)
                 .Select(Path.GetFullPath);
             List<DataEntity.SaveFile> saveFiles = [];
-            foreach (var path in saveFilePaths) {
+            foreach (var path in saveFilePaths)
+            {
                 try
                 {
                     var saveFile = new DataEntity.SaveFile(path);
