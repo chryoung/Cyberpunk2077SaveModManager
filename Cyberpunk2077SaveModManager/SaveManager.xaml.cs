@@ -8,17 +8,21 @@ namespace Cyberpunk2077SaveModManager
 {
     public sealed partial class SaveManager : Page
     {
-        private static string DefaultSaveDirectoryPath => $"{Environment.GetEnvironmentVariable("UserProfile")}\\Saved Games\\CD Projekt Red\\Cyberpunk 2077";
+        private static string DefaultSaveDirectoryPath() => $"{Environment.GetEnvironmentVariable("UserProfile")}\\Saved Games\\CD Projekt Red\\Cyberpunk 2077";
 
         public SaveManager()
         {
             this.InitializeComponent();
-            this.RefreshSaveList();
         }
 
-        public string SaveDirectoryPath { get; private set; } = DefaultSaveDirectoryPath;
+        public string SaveDirectoryPath { get; private set; } = DefaultSaveDirectoryPath();
 
         public VirtualSaveFileDataSource SaveFiles { get; private set; } = new();
+
+        private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            this.RefreshSaveList();
+        }
 
         private void RefreshSaveList()
         {

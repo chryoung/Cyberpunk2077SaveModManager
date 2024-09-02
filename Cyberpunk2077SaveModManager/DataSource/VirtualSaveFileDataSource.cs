@@ -7,7 +7,7 @@ using System.Collections.Specialized;
 
 namespace Cyberpunk2077SaveModManager.DataSource
 {
-    public class VirtualSaveFileDataSource : IList, INotifyCollectionChanged, IItemsRangeInfo
+    public class VirtualSaveFileDataSource : IList, IEnumerable<SaveFile>, INotifyCollectionChanged, IItemsRangeInfo
     {
         private List<SaveFile> _saveFiles = [];
 
@@ -63,6 +63,8 @@ namespace Cyberpunk2077SaveModManager.DataSource
         public void CopyTo(Array array, int index) => throw new NotImplementedException();
 
         public IEnumerator GetEnumerator() => this._saveFiles.GetEnumerator();
+
+        IEnumerator<SaveFile> IEnumerable<SaveFile>.GetEnumerator() => this._saveFiles.GetEnumerator();
 
         public int IndexOf(object value) => this._saveFiles.IndexOf((SaveFile)value);
 

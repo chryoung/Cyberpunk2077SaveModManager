@@ -9,7 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    NavigationCacheMode="Enabled">
+    NavigationCacheMode="Enabled"
+    Loaded="Page_Loaded">
 
     <Page.Resources>
         <DataTemplate x:Key="SaveEntryViewTemplate" x:DataType="de:SaveFile">
