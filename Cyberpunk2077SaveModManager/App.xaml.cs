@@ -15,7 +15,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Cyberpunk2077SaveModManager
 {
@@ -31,6 +31,12 @@ namespace Cyberpunk2077SaveModManager
         public App()
         {
             this.InitializeComponent();
+
+            // Initialize logger
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Debug()
+                .WriteTo.File("CyberPunk2077SaveModManager.txt", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 5)
+                .CreateLogger();
         }
 
         /// <summary>
