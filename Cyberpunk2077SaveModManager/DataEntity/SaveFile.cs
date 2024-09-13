@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using IOPath = System.IO.Path;
+using Serilog;
 
 namespace Cyberpunk2077SaveModManager.DataEntity
 {
@@ -104,8 +105,7 @@ namespace Cyberpunk2077SaveModManager.DataEntity
             }
             catch (Exception ex)
             {
-                // TODO: log exception
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                Log.Error("Failed to load metadata for {path}: {errorMessage}", this.Path, ex.Message);
             }
         }
 
@@ -129,8 +129,7 @@ namespace Cyberpunk2077SaveModManager.DataEntity
             }
             catch (Exception ex)
             {
-                // TODO: log exception
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                Log.Logger.Error("Failed to load screenshot for {path}: {errorMessage}", this.Path, ex.Message);
             }
         }
 

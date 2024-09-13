@@ -9,7 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    NavigationCacheMode="Enabled">
+    NavigationCacheMode="Enabled"
+    Loaded="Page_Loaded">
 
     <Page.Resources>
         <DataTemplate x:Key="SaveEntryViewTemplate" x:DataType="de:SaveFile">
@@ -32,7 +33,7 @@
                     Width="32"
                     Margin="6">
                     <Rectangle.Fill>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Screenshot, Mode=OneWay}" />
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Screenshot}"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <TextBlock
@@ -67,15 +68,43 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <ListView
-            Grid.Row="0"
-            Grid.Column="0"
-            x:Name="saveDataListView"
-            SelectionMode="Multiple"
-            ItemTemplate="{StaticResource SaveEntryViewTemplate}"
-            ItemsSource="{x:Bind SaveFiles, Mode=TwoWay}"/>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView
+                Grid.Row="0"
+                Grid.Column="0"
+                x:Name="SaveDataListView"
+                SelectionMode="Multiple"
+                ItemTemplate="{StaticResource SaveEntryViewTemplate}"
+                ItemsSource="{x:Bind SaveFiles, Mode=TwoWay}"
+                SelectionChanged="SaveDataListView_SelectionChanged"/>
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    x:Name="DeleteButton"
+                    Content="Delete"
+                    Click="DeleteButton_Click"
+                    IsEnabled="False"
+                    Margin="12"/>
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    x:Name="RefreshButton"
+                    Click="RefreshButton_Click">
+                    <SymbolIcon Symbol="Refresh" />
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

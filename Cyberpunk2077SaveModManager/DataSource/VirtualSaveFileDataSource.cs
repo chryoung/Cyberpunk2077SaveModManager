@@ -7,7 +7,7 @@ using System.Collections.Specialized;
 
 namespace Cyberpunk2077SaveModManager.DataSource
 {
-    public class VirtualSaveFileDataSource : IList, INotifyCollectionChanged, IItemsRangeInfo
+    public class VirtualSaveFileDataSource : IList, IEnumerable<SaveFile>, INotifyCollectionChanged, IItemsRangeInfo
     {
         private List<SaveFile> _saveFiles = [];
 
@@ -64,7 +64,13 @@ namespace Cyberpunk2077SaveModManager.DataSource
 
         public IEnumerator GetEnumerator() => this._saveFiles.GetEnumerator();
 
-        public int IndexOf(object value) => this._saveFiles.IndexOf((SaveFile)value);
+        IEnumerator<SaveFile> IEnumerable<SaveFile>.GetEnumerator() => this._saveFiles.GetEnumerator();
+
+        public int IndexOf(object value) => value switch
+        {
+            SaveFile saveFile => this._saveFiles.IndexOf(saveFile),
+            _ => -1,
+        };
 
         public void Insert(int index, object value) => this._saveFiles[index] = (SaveFile)value;
 
@@ -75,7 +81,10 @@ namespace Cyberpunk2077SaveModManager.DataSource
             {
                 var removedItem = this._saveFiles[index];
                 this.RemoveAt(index);
-                this.OnCollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removedItem, index));
+            }
+            else
+            {
+                throw new KeyNotFoundException("Failed to remove SaveFile: Cannot find SaveFile.");
             }
         }
 
@@ -113,7 +122,7 @@ namespace Cyberpunk2077SaveModManager.DataSource
 
         private void HandleRangesChanged(ItemIndexRange range)
         {
-            for (int index = range.FirstIndex; index < range.FirstIndex + range.Length; index++)
+            for (int index = range.FirstIndex; index <= range.LastIndex; index++)
             {
                 if (!_saveFiles[index].IsLoaded)
                 {

@@ -41,7 +41,9 @@ namespace Cyberpunk2077SaveModManager
             }
             else if (args.InvokedItemContainer != null)
             {
+#pragma warning disable IL2057 // Unrecognized value passed to the parameter of method. It's not possible to guarantee the availability of the target type.
                 Type navPageType = Type.GetType(args.InvokedItemContainer.Tag.ToString());
+#pragma warning restore IL2057 // Unrecognized value passed to the parameter of method. It's not possible to guarantee the availability of the target type.
                 NavView_Navigate(navPageType, args.RecommendedNavigationTransitionInfo);
             }
         }
